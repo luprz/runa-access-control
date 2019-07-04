@@ -2,8 +2,7 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       # Authentication
-      devise_for :users, skip: [:passwords]
-      get '/users/verify_token', to: 'devise/tokens#verify_token'
+      mount_devise_token_auth_for 'User', at: 'auth'
     end
   end
 
