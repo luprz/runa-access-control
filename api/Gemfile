@@ -24,8 +24,8 @@ gem 'puma', '~> 3.7'
 
 # The CORS spec allows web applications to make cross-domain AJAX calls without using workarounds such as JSONP.
 gem 'rack-cors', '1.0.3'
-# gem 'active_model_serializers'
-# gem 'impressionist', '1.6.1'
+# Json api serializer
+gem 'active_model_serializers'
 # gem 'rack-attack', '5.4.2'
 
 group :development, :test do
