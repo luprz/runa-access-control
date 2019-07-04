@@ -7,6 +7,14 @@ module Renders
 
   private
 
+  # Only print a message
+  def message(message)
+    render json: {
+      message: message,
+      status: :success
+    }, status: 200
+  end
+
   # If request is success
   def success(object)
     render json: object, status: 200

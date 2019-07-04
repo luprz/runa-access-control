@@ -28,6 +28,10 @@ gem 'rack-cors', '1.0.3'
 gem 'active_model_serializers'
 # Rack middleware for blocking & throttling
 gem 'rack-attack', '5.4.2'
+# Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth.
+gem 'devise_token_auth', '1.1.0'
+
+gem 'omniauth'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
