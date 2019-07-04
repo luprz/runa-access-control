@@ -2,7 +2,6 @@
 
 
 ## Authentication
----- 
 
 #### Create a  session:
 
