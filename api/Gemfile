@@ -31,6 +31,8 @@ gem 'rack-attack', '5.4.2'
 # Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth.
 gem 'devise_token_auth', '1.1.0'
 gem 'omniauth', '1.9.0'
+# Minimal authorization through OO design and pure Ruby classes
+gem 'pundit', '1.1.0'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
