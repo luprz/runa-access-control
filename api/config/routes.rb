@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   scope :api do
     scope :v1 do
       # Authentication
-      devise_for :user
+      devise_for :user, skip: [:passwords]
     end
   end
 

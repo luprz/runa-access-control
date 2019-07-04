@@ -1,10 +1,13 @@
-## Api Docs
--- -- 
-#### Authentication
+# Api Docs
+
+
+## Authentication
 ---- 
 
-Create a  session:
+#### Create a  session:
+
 **POST** `/api/v1/user/sign_in`
+
 **PARAMS**
 ```javascript
 { 
@@ -14,6 +17,7 @@ Create a  session:
     } 
 }
 ```
+
 **RESPONSE**
 ```javascript
 {
