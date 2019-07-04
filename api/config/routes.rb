@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
 
-  namespace :api do
-    namespace :v1 do
-      get '/', to: 'control#index', as: :index
+  scope :api do
+    scope :v1 do
+      # Authentication
+      devise_for :user
     end
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+
+  namespace :api do
+    namespace :v1 do
+      # Control
+      get '/control', to: 'control#index', as: :index
+    end
+  end
 end
