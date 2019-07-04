@@ -5,6 +5,7 @@ module Devise
   class SessionsController < DeviseController
     prepend_before_action :allow_params_authentication!, only: :create
     prepend_before_action :verify_signed_out_user, only: :destroy
+    before_action :authenticate_user!, only: [:destroy, :verify_token]
     prepend_before_action only: [:create, :destroy] do
       request.env['devise.skip_timeout'] = true
     end
@@ -13,6 +14,7 @@ module Devise
 
     # Sign in: create a user session
     def create
+      byebug
       self.resource = User.find_by_email(params[:user][:email])
       set_flash_message(:notice, :signed_in) if is_flashing_format?
       if resource && resource.valid_password?(params[:user][:password])
@@ -20,37 +22,19 @@ module Devise
         generate_token(resource)
         success(resource)
       else
-        forbidden('User not allowed')
+        forbidden("Email or password don't match")
       end
     end
 
     # Sign out: close a user session
     def destroy
-    end
-
-    protected
-
-    def sign_in_params
-      devise_parameter_sanitizer.sanitize(:sign_in)
-    end
-
-    def serialize_options(resource)
-      methods = resource_class.authentication_keys.dup
-      methods = methods.keys if methods.is_a?(Hash)
-      methods << :password if resource.respond_to?(:password)
-      { methods: methods, only: [:password] }
-    end
-
-    def auth_options(params)
-      if params[:user].has_key?(:path)
-        { scope: resource_name, recall: params[:user][:path] }
-      else
-        { scope: resource_name, recall: "#{controller_path}#new" }
+      destroy_token(@access_token)
+      signed_out =
+        (Devise.sign_out_all_scopes ? sign_out : sign_out(resource_name))
+      if signed_out && is_flashing_format?
+        set_flash_message :notice, :signed_out
       end
-    end
-
-    def translation_scope
-      'devise.sessions'
+      message('Session has beed closed successfully')
     end
 
     private
@@ -62,8 +46,6 @@ module Devise
     def verify_signed_out_user
       if all_signed_out?
         set_flash_message :notice, :already_signed_out if is_flashing_format?
-
-        respond_to_on_destroy
       end
     end
 
@@ -75,14 +57,25 @@ module Devise
       users.all?(&:blank?)
     end
 
-
     def generate_token(resource)
       access_token = SecureRandom.hex(20)
       resource.update(access_token: access_token)
     end
 
-    def destroy_token(resource)
+    def destroy_token(access_token)
+      resource = User.find_by_access_token(access_token)
       resource.update(access_token: nil)
+    end
+
+    # Function for validate access token
+    def authenticate_user!
+      @access_token = request.headers['access-token']
+      if @access_token 
+        return if User.exists?(access_token: @access_token)
+        forbidden('User not allowed')
+      else
+        bad_request('Access token is require')
+      end
     end
   end
 end

@@ -10,7 +10,7 @@ module Api
       # and the admin will can check in or check out
       # a employee
       def index
-        success('Ready')
+        message('Ready')
       end
     end
   end

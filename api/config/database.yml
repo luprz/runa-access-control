@@ -23,7 +23,7 @@ default: &default
 
 development:
   <<: *default
-  database: runa_acces_control_development
+  database: runa_access_control_development
   host: localhost
   port: 5432
   username: novedo
@@ -61,7 +61,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  ddatabase: runa_acces_control_test
+  database: runa_access_control_test
   host: localhost
   port: 5432
   username: novedo
@@ -88,6 +88,6 @@ test:
 #
 production:
   <<: *default
-  database: runa_acces_control_production
+  database: runa_access_control_production
   username: api
   password: <%= ENV['API_DATABASE_PASSWORD'] %>

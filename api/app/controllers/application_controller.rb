@@ -4,9 +4,15 @@
 class ApplicationController < ActionController::API
   include Renders
 
+  private
+  
   # Function for validate access token
   def authenticate_user!
-    return if User.exists?(access_token: request.headers['access-token'])
-    forbidden('User not allowed')
+    if request.headers['access-token']
+      return if User.exists?(access_token: request.headers['access-token'])
+      forbidden('User not allowed')
+    else
+      bad_request('Access token is require')
+    end
   end
 end

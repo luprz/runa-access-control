@@ -7,7 +7,9 @@ module RequestSpecHelper
   end
 
   def sign_in(resource)
+    byebug
     login_as(resource, scope: warden_scope(resource))
+    generate_token(resource)
   end
 
   def sign_out(resource)
@@ -18,5 +20,10 @@ module RequestSpecHelper
 
   def warden_scope(resource)
     resource.class.name.underscore.to_sym
+  end
+  
+  def generate_token(resource)
+    access_token = SecureRandom.hex(20)
+    resource.update(access_token: access_token)
   end
 end
