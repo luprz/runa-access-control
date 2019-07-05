@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe AdministratorsPolicy, type: :policy do
+RSpec.describe AdministratorPolicy, type: :policy do
   let(:user) { create(user_assign) }
   subject { described_class.new(user: user) }
 
