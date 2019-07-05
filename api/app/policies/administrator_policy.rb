@@ -15,7 +15,13 @@ class AdministratorPolicy < ApplicationPolicy
     loudly { @user.is_a? Administrator }
   end
 
+  # Allow create only to adinistratios
   def create?
+    loudly { @user.is_a? Administrator }
+  end
+
+  # Allow show only to adinistratios
+  def show?
     loudly { @user.is_a? Administrator }
   end
 end

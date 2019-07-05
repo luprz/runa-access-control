@@ -7,7 +7,6 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
 
   context 'without an authenticated user' do
     describe 'GET /api/v1/administrators' do
-
       it '401 - Unauthorized' do
         get :index
         expect(response.status).to eq(401)
@@ -17,6 +16,13 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
     describe 'POST /api/v1/administrators' do
       it '401 - Unauthorized' do
         post :create
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe 'GET /api/v1/administrators/:id' do
+      it '401 - Unauthorized' do
+        post :show, params: { id: 1 }
         expect(response.status).to eq(401)
       end
     end
@@ -68,10 +74,27 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
       it '201 - CREATED' do
         expect(response.status).to eq(201)
       end
-      
+
       it 'return an administrator object' do
         json_body = JSON.parse(response.body)
         expect(json_body.dig('data', 'type')).to eq('administrators')
+      end
+    end
+
+    describe 'GET /api/v1/administrators/:id' do
+      before do
+        mock = double(show?: true)
+
+        expect(AdministratorPolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      it '200 - OK' do
+        get :show, params: { id: user.id }
+        expect(response.status).to eq(200)
       end
     end
   end
