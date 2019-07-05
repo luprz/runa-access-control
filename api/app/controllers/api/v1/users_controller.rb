@@ -3,11 +3,26 @@
 # Controller for users
 class Api::V1::UsersController < ApplicationController
   before_action :authenticate_user!
+  before_action :current_page
+
   include Renders
 
   # Action for get all users
   def index
-    users = User.all
+    policy.index?
+    users = User.all.page(@current_page)
     success(users)
+  end
+
+  private
+
+  # Function for get current page
+  def current_page
+    @current_page = params[:page]
+  end
+
+  # Permissions to users
+  def policy
+    @policy ||= ControlPolicy.new(user: current_user)
   end
 end
