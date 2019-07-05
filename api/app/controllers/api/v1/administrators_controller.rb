@@ -14,6 +14,17 @@ class Api::V1::AdministratorsController < ApplicationController
     success(admins)
   end
 
+  # Action to create a administrator
+  def create
+    admin = Administrator.new(admin_params)
+
+    if admin.save
+      success(admin)
+    else
+      bad_request(admin.errors)
+    end
+  end
+
   private
 
   # Function to get current page
@@ -24,5 +35,11 @@ class Api::V1::AdministratorsController < ApplicationController
   # Permissions to users
   def policy
     @policy ||= ControlPolicy.new(user: current_user)
+  end
+
+  def admin_params
+    params.require(:administrator).permit(
+      :name, :email, :password
+    )
   end
 end
