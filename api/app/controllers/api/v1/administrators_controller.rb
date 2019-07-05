@@ -16,12 +16,13 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # Action to create a administrator
   def create
+    policy.create?
     admin = Administrator.new(admin_params)
 
     if admin.save
-      success(admin)
+      created(admin)
     else
-      bad_request(admin.errors)
+      unprocessable_entity(admin.errors)
     end
   end
 
@@ -34,7 +35,7 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # Permissions to users
   def policy
-    @policy ||= ControlPolicy.new(user: current_user)
+    @policy ||= AdministratorPolicy.new(user: current_user)
   end
 
   def admin_params

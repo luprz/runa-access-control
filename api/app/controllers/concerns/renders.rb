@@ -20,6 +20,15 @@ module Renders
     render json: object, status: 200
   end
 
+  # If request is success
+  def created(object)
+    render json: object, status: 201
+  end
+
+  def unprocessable_entity(object)
+    render json: object, status: 422
+  end
+
   # If request no found
   def no_found(message)
     render json: {

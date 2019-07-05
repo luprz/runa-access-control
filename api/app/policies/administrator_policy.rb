@@ -2,7 +2,7 @@
 
 # Administrators Policy: Permit control class for
 #                        administrators
-class AdministratorsPolicy < ApplicationPolicy
+class AdministratorPolicy < ApplicationPolicy
   attr_reader :user
 
   def initialize(user:)
@@ -16,6 +16,6 @@ class AdministratorsPolicy < ApplicationPolicy
   end
 
   def create?
-    true
+    loudly { @user.is_a? Administrator }
   end
 end
