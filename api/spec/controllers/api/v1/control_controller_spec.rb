@@ -3,12 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Api::V1::ControlController, type: :controller do
-  let(:user) { create(:user, role) }
-  let(:user_fail) { build(:user, email: 'email@failemail.com') }
+  let(:user) { create(user_assigned) }
+  let(:user_fail) { build(:administrator, email: 'email@failemail.com') }
 
   context 'without an authenticated user' do
     describe 'GET /api/v1/control' do
-      let(:role) { :admin }
+      let(:user_assigned) { :administrator }
 
       it '401 - Unauthorized' do
         get :index
@@ -24,7 +24,7 @@ RSpec.describe Api::V1::ControlController, type: :controller do
   end
 
   context 'with an authenticated user' do
-    let(:role) { :admin }
+    let(:user_assigned) { :administrator }
     before { sign_in(user) }
 
     describe 'GET /api/v1/control' do
@@ -37,7 +37,7 @@ RSpec.describe Api::V1::ControlController, type: :controller do
 
   context 'when user not allowed' do
     describe 'GET /api/v1/control' do
-      let(:role) { :employee }
+      let(:user_assigned) { :employee }
 
       it '401 - Unauthorized' do
         sign_in(user)
