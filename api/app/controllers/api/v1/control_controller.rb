@@ -10,7 +10,14 @@ module Api
       # and the admin will can check in or check out
       # a employee
       def index
+        policy.index?
         message('Ready')
+      end
+
+      private
+
+      def policy
+        @policy ||= ControlPolicy.new(user: current_user)
       end
     end
   end

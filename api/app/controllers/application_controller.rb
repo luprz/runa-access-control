@@ -2,8 +2,21 @@
 
 # Application controller
 class ApplicationController < ActionController::API
-   include DeviseTokenAuth::Concerns::SetUserByToken
+  include Pundit
+  include DeviseTokenAuth::Concerns::SetUserByToken
   include Renders
 
-  
+  before_action :configure_permitted_parameters, if: :devise_controller?
+
+  rescue_from Pundit::NotAuthorizedError do
+    head :forbidden
+  end
+
+  protected
+
+  def configure_permitted_parameters
+    devise_parameter_sanitizer.permit(:sign_up,
+                                      keys: %i[name email password
+                                               role registration])
+  end
 end

@@ -210,6 +210,7 @@ DEPENDENCIES
   omniauth (= 1.9.0)
   pg (~> 0.18)
   puma (~> 3.7)
+  pundit (= 1.1.0)
   pundit-matchers (~> 1.4.1)
   rack-attack (= 5.4.2)
   rack-cors (= 1.0.3)
