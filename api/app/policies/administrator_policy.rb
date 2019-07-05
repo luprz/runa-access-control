@@ -29,4 +29,9 @@ class AdministratorPolicy < ApplicationPolicy
   def update?
     loudly { @user.is_a? Administrator }
   end
+
+  # Allow destroy only to administrators
+  def destroy?
+    loudly { @user.is_a? Administrator }
+  end
 end

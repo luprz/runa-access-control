@@ -4,7 +4,7 @@
 class Api::V1::AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :current_page
-  before_action :set_administrator, only: %i[show update]
+  before_action :set_administrator, only: %i[show update destroy]
 
   include Renders
 
@@ -12,6 +12,7 @@ class Api::V1::AdministratorsController < ApplicationController
   def index
     policy.index?
     admins = Administrator.all.page(@current_page)
+    admins = admins.reject { |a| a.eql?(current_user) }
     success(admins)
   end
 
@@ -40,6 +41,17 @@ class Api::V1::AdministratorsController < ApplicationController
       success(@admin)
     else
       unprocessable_entity(@admin.errors)
+    end
+  end
+
+  # Action to destroy an administrator
+  def destroy
+    policy.destroy?
+    if !@admin.eql?(current_user)
+      @admin.destroy
+      head :no_content
+    else
+      head :forbidden
     end
   end
 

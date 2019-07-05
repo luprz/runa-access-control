@@ -180,5 +180,31 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
         end
       end
     end
+
+    describe 'DELETE /api/v1/administrators/:id' do
+      let(:admin) { create(:administrator, :delete_admin) }
+
+      before do
+        mock = double(destroy?: true)
+
+        expect(AdministratorPolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      it '204 - NO CONTENT' do
+        delete :destroy, params: { id: admin.id }
+        expect(response.status).to eq(204)
+      end
+
+      context 'when you try to delete current_user' do
+        it '403 - FORBIDDEN' do
+          delete :destroy, params: { id: user.id }
+          expect(response.status).to eq(403)
+        end
+      end
+    end
   end
 end

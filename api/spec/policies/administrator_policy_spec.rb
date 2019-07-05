@@ -89,4 +89,23 @@ RSpec.describe AdministratorPolicy, type: :policy do
       end
     end
   end
+
+  describe '#destroy?' do
+    context 'when a user is admin' do
+      let(:user_assign) { :administrator }
+
+      it 'return true' do
+        expect(subject.destroy?).to equal(true)
+      end
+    end
+
+    context 'when a user is not admin' do
+      let(:user_assign) { :employee }
+
+      it 'raise pundit exception' do
+        expect { subject.destroy? }
+          .to raise_exception(Pundit::NotAuthorizedError)
+      end
+    end
+  end
 end
