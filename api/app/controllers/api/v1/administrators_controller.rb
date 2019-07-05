@@ -1,17 +1,17 @@
 # frozen_string_literal: true
 
 # Controller for users
-class Api::V1::UsersController < ApplicationController
+class Api::V1::AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :current_page
 
   include Renders
 
-  # Action to get all users
+  # Action to get all adminstrators
   def index
     policy.index?
-    users = User.all.page(@current_page)
-    success(users)
+    admins = Administrator.all.page(@current_page)
+    success(admins)
   end
 
   private
