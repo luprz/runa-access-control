@@ -4,7 +4,7 @@
 class Api::V1::AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :current_page
-  before_action :set_administrator, only: %i[show]
+  before_action :set_administrator, only: %i[show update]
 
   include Renders
 
@@ -30,14 +30,24 @@ class Api::V1::AdministratorsController < ApplicationController
   # Action to show an administrator
   def show
     policy.show?
-    success(@administrator)
+    success(@admin)
+  end
+
+  # Action to update an administrator
+  def update
+    policy.update?
+    if @admin.update(admin_params)
+      success(@admin)
+    else
+      unprocessable_entity(@admin.errors)
+    end
   end
 
   private
 
   # Set an administrator
   def set_administrator
-    @administrator = Administrator.find(params[:id])
+    @admin = Administrator.find(params[:id])
   rescue StandardError
     no_found("Couldn't find Administrator with 'id'=#{params[:id]}")
   end

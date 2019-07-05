@@ -52,32 +52,56 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
     end
 
     describe 'POST /api/v1/administrators' do
-      before do
-        mock = double(create?: true)
+      context 'when administrator has been created successfully' do
+        before do
+          mock = double(create?: true)
 
-        expect(AdministratorPolicy)
-          .to receive(:new)
-          .with(user: user)
-          .once
-          .and_return(mock)
+          expect(AdministratorPolicy)
+            .to receive(:new)
+            .with(user: user)
+            .once
+            .and_return(mock)
 
-        post :create, params: {
-          administrator: {
-            name: 'Sr. Admin',
-            email: 'admin@gmail.com',
-            position: 'RRHH',
-            password: '12345678'
+          post :create, params: {
+            administrator: {
+              name: 'Sr. Admin',
+              email: 'admin@gmail.com',
+              position: 'RRHH',
+              password: '12345678'
+            }
           }
-        }
+        end
+
+        it '201 - CREATED' do
+          expect(response.status).to eq(201)
+        end
+
+        it 'return an administrator object' do
+          json_body = JSON.parse(response.body)
+          expect(json_body.dig('data', 'type')).to eq('administrators')
+        end
       end
 
-      it '201 - CREATED' do
-        expect(response.status).to eq(201)
-      end
+      context 'when failures have occurred' do
+        before do
+          mock = double(create?: true)
 
-      it 'return an administrator object' do
-        json_body = JSON.parse(response.body)
-        expect(json_body.dig('data', 'type')).to eq('administrators')
+          expect(AdministratorPolicy)
+            .to receive(:new)
+            .with(user: user)
+            .once
+            .and_return(mock)
+
+          post :create, params: {
+            administrator: {
+              email: ''
+            }
+          }
+        end
+
+        it '422 - UNPROCESSABLE ENTITY' do
+          expect(response.status).to eq(422)
+        end
       end
     end
 
@@ -95,6 +119,65 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
       it '200 - OK' do
         get :show, params: { id: user.id }
         expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'UPDATE /api/v1/administrators/:id' do
+      context 'when administrator has been updated successfully' do
+        let(:user_assigned) { :administrator }
+
+        before do
+          mock = double(update?: true)
+
+          expect(AdministratorPolicy)
+            .to receive(:new)
+            .with(user: user)
+            .once
+            .and_return(mock)
+
+          post :update, params: {
+            id: user.id,
+            administrator: {
+              name: 'Sr. Admin Gonzales',
+              email: 'gonzales@gmail.com',
+              position: 'Supervisor',
+              password: '12345678910'
+            }
+          }
+        end
+
+        it '200 - UPDATE' do
+          expect(response.status).to eq(200)
+        end
+
+        it 'return an administrator object' do
+          json_body = JSON.parse(response.body)
+          expect(json_body.dig('data', 'type')).to eq('administrators')
+        end
+      end
+
+      context 'when failures have occurred' do
+        let(:user_assigned) { :administrator }
+        before do
+          mock = double(update?: true)
+
+          expect(AdministratorPolicy)
+            .to receive(:new)
+            .with(user: user)
+            .once
+            .and_return(mock)
+
+          post :update, params: {
+            id: user.id,
+            administrator: {
+              email: ''
+            }
+          }
+        end
+
+        it '422 - UNPROCESSABLE ENTITY' do
+          expect(response.status).to eq(422)
+        end
       end
     end
   end
