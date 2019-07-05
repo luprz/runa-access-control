@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   scope :api do
     scope :v1 do
       # Authentication
@@ -9,7 +10,10 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       # Control index
-      get '/control', to: 'control#index', as: :index
+      get '/control/operations', to: 'control#index', as: :index
+      resources :users, except: %i[new create edit update] do
+        get '(page/:page)', action: :index, on: :collection, as: nil
+      end
     end
   end
 end

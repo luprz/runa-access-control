@@ -12,6 +12,6 @@ class ControlPolicy < ApplicationPolicy
   # Allow to obtain the list of operations
   # only to administrators
   def index?
-    loudly { @user.administrator? }
+    loudly { @user.is_a? Administrator }
   end
 end
