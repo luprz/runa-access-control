@@ -2,5 +2,5 @@
 
 # User json api serializer
 class UserSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :role
+  attributes :id, :email, :name
 end
