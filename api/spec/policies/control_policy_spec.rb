@@ -8,7 +8,7 @@ RSpec.describe ControlPolicy, type: :policy do
 
   describe '#initialize' do
     let(:role) { :admin }
-    
+
     it 'assign user' do
       expect(subject.user).to equal(user)
     end
