@@ -14,4 +14,8 @@ class AdministratorsPolicy < ApplicationPolicy
   def index?
     loudly { @user.is_a? Administrator }
   end
+
+  def create?
+    true
+  end
 end
