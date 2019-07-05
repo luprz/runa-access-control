@@ -1,8 +1,8 @@
 class ApplicationPolicy
-  attr_reader :user, :record
+  def loudly
+    raise ArgumentError unless block_given?
+    return true if yield
 
-  def initialize(user, record)
-    @user = user
-    @record = record
+    raise Pundit::NotAuthorizedError
   end
 end

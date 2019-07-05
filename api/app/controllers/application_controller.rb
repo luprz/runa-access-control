@@ -9,7 +9,7 @@ class ApplicationController < ActionController::API
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   rescue_from Pundit::NotAuthorizedError do
-    forbidden('You do not have access to this request')
+    head :forbidden
   end
 
   protected

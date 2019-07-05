@@ -1,12 +1,11 @@
-class ControlPolicy < Struct.new(:user, :control)
+class ControlPolicy < ApplicationPolicy
   attr_reader :user
 
-  def initialize(user, record)
+  def initialize(user:)
     @user = user
-    @record = record
   end
 
   def index?
-    @user.administrator?
+    loudly { @user.administrator? }
   end
 end
