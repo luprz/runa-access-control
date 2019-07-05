@@ -4,7 +4,7 @@
 class Api::V1::ControlController < ApplicationController
   before_action :authenticate_user!
 
-  # Action for get all operations
+  # Action to get all operations
   def index
     policy.index?
     message('Ready')

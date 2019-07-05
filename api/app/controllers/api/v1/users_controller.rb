@@ -7,7 +7,7 @@ class Api::V1::UsersController < ApplicationController
 
   include Renders
 
-  # Action for get all users
+  # Action to get all users
   def index
     policy.index?
     users = User.all.page(@current_page)
@@ -16,7 +16,7 @@ class Api::V1::UsersController < ApplicationController
 
   private
 
-  # Function for get current page
+  # Function to get current page
   def current_page
     @current_page = params[:page]
   end
