@@ -4,6 +4,7 @@
 class Api::V1::AdministratorsController < ApplicationController
   before_action :authenticate_user!
   before_action :current_page
+  before_action :set_administrator, only: %i[show]
 
   include Renders
 
@@ -26,7 +27,20 @@ class Api::V1::AdministratorsController < ApplicationController
     end
   end
 
+  # Action to show an administrator
+  def show
+    policy.show?
+    success(@administrator)
+  end
+
   private
+
+  # Set an administrator
+  def set_administrator
+    @administrator = Administrator.find(params[:id])
+  rescue StandardError
+    no_found("Couldn't find Administrator with 'id'=#{params[:id]}")
+  end
 
   # Function to get current page
   def current_page
@@ -38,6 +52,7 @@ class Api::V1::AdministratorsController < ApplicationController
     @policy ||= AdministratorPolicy.new(user: current_user)
   end
 
+  # Params object
   def admin_params
     params.require(:administrator).permit(
       :name, :email, :password
