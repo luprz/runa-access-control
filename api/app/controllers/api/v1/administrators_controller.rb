@@ -47,7 +47,7 @@ class Api::V1::AdministratorsController < ApplicationController
   # Action to destroy an administrator
   def destroy
     policy.destroy?
-    unless @admin.eql?(current_user)
+    if !@admin.eql?(current_user)
       @admin.destroy
       head :no_content
     else
