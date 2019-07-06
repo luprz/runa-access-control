@@ -19,4 +19,9 @@ class EmployeePolicy < ApplicationPolicy
   def create?
     loudly { @user.is_a? Administrator }
   end
+
+  # Allow show only to administrators
+  def show?
+    loudly { @user.is_a? Administrator }
+  end
 end
