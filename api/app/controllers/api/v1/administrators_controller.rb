@@ -77,7 +77,7 @@ class Api::V1::AdministratorsController < ApplicationController
   # Params object permit
   def admin_params
     params.require(:administrator).permit(
-      :name, :email, :password
+      :name, :email, :password, :position
     )
   end
 end
