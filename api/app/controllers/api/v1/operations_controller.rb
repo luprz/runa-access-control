@@ -17,12 +17,10 @@ class Api::V1::OperationsController < ApplicationController
   def check
     @policy.check?
     note = operation_params[:note]
-    operation = @employee.check_toggle(note: note)
-    if operation
-      success(operation)
-    else
-      unprocessable_entity(operation)
-    end
+    operation = @employee.check_toggle(
+      note: note, 
+      admin_id: current_user)
+    operation ? success(operation) : unprocessable_entity(operation)
   end
 
   private

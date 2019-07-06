@@ -7,12 +7,13 @@ class Employee < User
   has_many :operations
 
   # Instance function to register check in or check out
-  def check_toggle(note:)
+  def check_toggle(admin_id:, note:)
     operation_status = status.eql?('in') ? 'out' : 'in'
     Operation.create(
       status: operation_status,
       note: note,
-      employee_id: id
+      employee_id: id,
+      administrator_id: admin_id
     )
   end
 

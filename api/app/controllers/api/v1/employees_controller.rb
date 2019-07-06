@@ -54,7 +54,7 @@ class Api::V1::EmployeesController < ApplicationController
 
   private
 
-  # Set an administrator
+  # Set an employee
   def set_employee
     @employee = Employee.find(params[:id])
   rescue StandardError

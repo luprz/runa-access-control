@@ -4,4 +4,5 @@
 class OperationSerializer < ActiveModel::Serializer
   attributes :id, :status, :note, :created_at
   belongs_to :employee
+  belongs_to :administrator
 end
