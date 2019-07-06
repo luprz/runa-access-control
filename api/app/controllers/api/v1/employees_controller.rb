@@ -3,7 +3,7 @@
 # Controller for employees
 class Api::V1::EmployeesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_employee, only: %i[show]
+  before_action :set_employee, only: %i[show update]
   before_action :current_page
 
   include Renders
@@ -33,6 +33,16 @@ class Api::V1::EmployeesController < ApplicationController
   def show
     policy.show?
     success(@employee)
+  end
+
+  # Action to update an administrator
+  def update
+    policy.update?
+    if @employee.update(employee_params)
+      success(@employee)
+    else
+      unprocessable_entity(@employee.errors)
+    end
   end
 
   private

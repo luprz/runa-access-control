@@ -24,4 +24,9 @@ class EmployeePolicy < ApplicationPolicy
   def show?
     loudly { @user.is_a? Administrator }
   end
+
+  # Allow update only to administrators
+  def update?
+    loudly { @user.is_a? Administrator }
+  end
 end
