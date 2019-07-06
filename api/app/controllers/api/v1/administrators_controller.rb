@@ -74,7 +74,7 @@ class Api::V1::AdministratorsController < ApplicationController
     @policy ||= AdministratorPolicy.new(user: current_user)
   end
 
-  # Params object
+  # Params object permit
   def admin_params
     params.require(:administrator).permit(
       :name, :email, :password

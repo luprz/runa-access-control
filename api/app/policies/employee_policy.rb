@@ -14,4 +14,9 @@ class EmployeePolicy < ApplicationPolicy
   def index?
     loudly { @user.is_a? Administrator }
   end
+
+  # Allow create only to administrators
+  def create?
+    loudly { @user.is_a? Administrator }
+  end
 end
