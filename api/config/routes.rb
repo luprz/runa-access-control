@@ -11,7 +11,12 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Control index
       get '/control/operations', to: 'control#index', as: :index
+      # Administrators
       resources :administrators do
+        get '(page/:page)', action: :index, on: :collection, as: nil
+      end
+      # Employees
+      resources :employees do
         get '(page/:page)', action: :index, on: :collection, as: nil
       end
     end

@@ -8,4 +8,4 @@
 
 Administrator.create(name: 'Sr. Admin', email: 'admin@admin.com', position: 'RRHH', password: '12345678')
 
-Administrator.create(name: 'Sr. Employee', email: 'Employee@Employee.com', position: 'Obrero', password: '12345678')
+Employee.create(name: 'Sr. Employee', email: 'Employee@Employee.com', position: 'Obrero', password: '12345678')
