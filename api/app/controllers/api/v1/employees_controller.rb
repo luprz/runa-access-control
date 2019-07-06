@@ -15,6 +15,19 @@ class Api::V1::EmployeesController < ApplicationController
     success(employees)
   end
 
+  # Action to create a employee
+  def create
+    policy.create?
+    employee = Employee.new(employee_params)
+
+    if employee.save
+      current_user.register(employee)
+      created(employee)
+    else
+      unprocessable_entity(employee.errors)
+    end
+  end
+
   private
 
   # Function to get current page
@@ -25,5 +38,12 @@ class Api::V1::EmployeesController < ApplicationController
   # Permissions to users
   def policy
     @policy ||= EmployeePolicy.new(user: current_user)
+  end
+
+  # Params object permit
+  def employee_params
+    params.require(:employee).permit(
+      :name, :email, :password
+    )
   end
 end
