@@ -17,21 +17,21 @@ class AdministratorPolicy < ApplicationPolicy
 
   # Allow create only to administrators
   def create?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 
   # Allow show only to administrators
   def show?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 
   # Allow update only to administrators
   def update?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 
   # Allow destroy only to administrators
   def destroy?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 end

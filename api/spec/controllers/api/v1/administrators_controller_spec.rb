@@ -26,6 +26,20 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
         expect(response.status).to eq(401)
       end
     end
+
+    describe 'UPDATE /api/v1/administrators/:id' do
+      it '401 - Unauthorized' do
+        patch :update, params: { id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe 'DELETE /api/v1/administrators/:id' do
+      it '401 - Unauthorized' do
+        delete :destroy, params: { id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   context 'with an authenticated user' do
@@ -135,7 +149,7 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
             .once
             .and_return(mock)
 
-          post :update, params: {
+          patch :update, params: {
             id: user.id,
             administrator: {
               name: 'Sr. Admin Gonzales',
@@ -167,7 +181,7 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
             .once
             .and_return(mock)
 
-          post :update, params: {
+          patch :update, params: {
             id: user.id,
             administrator: {
               email: ''

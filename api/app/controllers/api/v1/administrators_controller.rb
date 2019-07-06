@@ -3,14 +3,15 @@
 # Controller for users
 class Api::V1::AdministratorsController < ApplicationController
   before_action :authenticate_user!
-  before_action :current_page
+  before_action :current_page, only: %i[index]
   before_action :set_administrator, only: %i[show update destroy]
+  before_action :policy
 
   include Renders
 
   # Action to get all adminstrators
   def index
-    policy.index?
+    @policy.index?
     admins = Administrator.all.page(@current_page)
     admins = admins.reject { |a| a.eql?(current_user) }
     success(admins)
@@ -18,7 +19,7 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # Action to create a administrator
   def create
-    policy.create?
+    @policy.create?
     admin = Administrator.new(admin_params)
 
     if admin.save
@@ -30,13 +31,13 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # Action to show an administrator
   def show
-    policy.show?
+    @policy.show?
     success(@admin)
   end
 
   # Action to update an administrator
   def update
-    policy.update?
+    @policy.update?
     if @admin.update(admin_params)
       success(@admin)
     else
@@ -46,7 +47,7 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # Action to destroy an administrator
   def destroy
-    policy.destroy?
+    @policy.destroy?
     if !@admin.eql?(current_user)
       @admin.destroy
       head :no_content
@@ -62,11 +63,6 @@ class Api::V1::AdministratorsController < ApplicationController
     @admin = Administrator.find(params[:id])
   rescue StandardError
     no_found("Couldn't find Administrator with 'id'=#{params[:id]}")
-  end
-
-  # Function to get current page
-  def current_page
-    @current_page = params[:page]
   end
 
   # Permissions to users

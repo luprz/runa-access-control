@@ -4,6 +4,7 @@
 class Administrator < User
   has_many :subjects, dependent: :destroy
   has_many :employees, through: :subjects
+  has_many :operations
 
   # Instance function to assign an employee
   # to an administrators

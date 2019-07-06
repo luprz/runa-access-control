@@ -57,16 +57,15 @@ RSpec.describe EmployeePolicy, type: :policy do
       let(:user_assign) { :administrator }
 
       it 'return true' do
-        expect(subject.create?).to equal(true)
+        expect(subject.show?).to equal(true)
       end
     end
 
-    context 'when a user is not admin' do
+    context 'when a user is employee' do
       let(:user_assign) { :employee }
 
-      it 'raise pundit exception' do
-        expect { subject.create? }
-          .to raise_exception(Pundit::NotAuthorizedError)
+      it 'return true' do
+        expect(subject.show?).to equal(true)
       end
     end
   end

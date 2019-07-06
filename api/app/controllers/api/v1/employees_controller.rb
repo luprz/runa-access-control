@@ -4,21 +4,21 @@
 class Api::V1::EmployeesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_employee, only: %i[show update destroy]
-  before_action :current_page
+  before_action :current_page, only: %i[index]
+  before_action :policy
 
   include Renders
 
   # Action to get all employees
   def index
-    policy.index?
+    @policy.index?
     employees = Employee.all.page(@current_page)
-    employees = employees.reject { |a| a.eql?(current_user) }
     success(employees)
   end
 
   # Action to create a employee
   def create
-    policy.create?
+    @policy.create?
     employee = Employee.new(employee_params)
 
     if employee.save
@@ -31,13 +31,13 @@ class Api::V1::EmployeesController < ApplicationController
 
   # Action to show an employee
   def show
-    policy.show?
+    @policy.show?
     success(@employee)
   end
 
   # Action to update an employee
   def update
-    policy.update?
+    @policy.update?
     if @employee.update(employee_params)
       success(@employee)
     else
@@ -47,19 +47,14 @@ class Api::V1::EmployeesController < ApplicationController
 
   # Action to destroy an employee
   def destroy
-    policy.destroy?
+    @policy.destroy?
     @employee.destroy
     head :no_content
   end
 
   private
 
-  # Function to get current page
-  def current_page
-    @current_page = params[:page]
-  end
-
-  # Set an administrator
+  # Set an employee
   def set_employee
     @employee = Employee.find(params[:id])
   rescue StandardError

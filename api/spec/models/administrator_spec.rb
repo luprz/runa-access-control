@@ -6,6 +6,7 @@ RSpec.describe Administrator, type: :model do
   context 'associations' do
     it { have_many(:subjects) }
     it { have_many(:employees) }
+    it { have_many(:operations) }
   end
 
   describe '#register' do

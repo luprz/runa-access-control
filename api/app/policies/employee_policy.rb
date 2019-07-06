@@ -17,7 +17,7 @@ class EmployeePolicy < ApplicationPolicy
 
   # Allow create only to administrators
   def create?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 
   # Allow show to administrators and employees
@@ -27,11 +27,11 @@ class EmployeePolicy < ApplicationPolicy
 
   # Allow update only to administrators
   def update?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 
   # Allow destroy only to administrators
   def destroy?
-    loudly { @user.is_a? Administrator }
+    index?
   end
 end
