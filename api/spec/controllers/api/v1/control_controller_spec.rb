@@ -27,7 +27,7 @@ RSpec.describe Api::V1::ControlController, type: :controller do
     let(:user_assigned) { :administrator }
     before { sign_in(user) }
 
-    describe 'GET /api/v1/control' do
+    describe 'GET /api/v1/control/operations' do
       it '200 - OK' do
         get :index
         expect(response.status).to eq(200)
