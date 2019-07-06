@@ -140,8 +140,8 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
 
           post :update, params: {
             id: employee.id,
-            administrator: {
-              name: 'Sr. Admin Gonzales',
+            employee: {
+              name: 'Sr. Employee Gonzales',
               email: 'gonzales@gmail.com',
               position: 'Supervisor',
               password: '12345678910'
@@ -174,7 +174,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
 
           post :update, params: {
             id: employee.id,
-            administrator: {
+            employee: {
               email: ''
             }
           }
