@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ControlPolicy, type: :policy do
+RSpec.describe OperationPolicy, type: :policy do
   let(:user) { create(user_assign) }
   subject { described_class.new(user: user) }
 
@@ -28,6 +28,25 @@ RSpec.describe ControlPolicy, type: :policy do
 
       it 'raise pundit exception' do
         expect { subject.index? }
+          .to raise_exception(Pundit::NotAuthorizedError)
+      end
+    end
+  end
+
+  describe '#check_toggle?' do
+    context 'when a user is admin' do
+      let(:user_assign) { :administrator }
+
+      it 'return true' do
+        expect(subject.check?).to equal(true)
+      end
+    end
+
+    context 'when a user is not admin' do
+      let(:user_assign) { :employee }
+
+      it 'raise pundit exception' do
+        expect { subject.check? }
           .to raise_exception(Pundit::NotAuthorizedError)
       end
     end

@@ -26,6 +26,20 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
         expect(response.status).to eq(401)
       end
     end
+
+    describe 'UPDATE /api/v1/employee/:id' do
+      it '401 - Unauthorized' do
+        patch :update, params: { id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe 'DELETE /api/v1/employee/:id' do
+      it '401 - Unauthorized' do
+        delete :destroy, params: { id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   context 'with an authenticated user' do

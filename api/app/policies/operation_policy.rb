@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Control Policy: Permit control class for
-#                 check in and out of employees
-class ControlPolicy < ApplicationPolicy
+# Operation Policy: Permit control class for
+#                   check in and out of employees
+class OperationPolicy < ApplicationPolicy
   attr_reader :user
 
   def initialize(user:)
@@ -13,5 +13,10 @@ class ControlPolicy < ApplicationPolicy
   # only to administrators
   def index?
     loudly { @user.is_a? Administrator }
+  end
+
+  # Allow to register check in / check out
+  def check?
+    index?
   end
 end
