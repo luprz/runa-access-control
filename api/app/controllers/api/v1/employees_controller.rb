@@ -3,7 +3,7 @@
 # Controller for employees
 class Api::V1::EmployeesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_employee, only: %i[show update]
+  before_action :set_employee, only: %i[show update destroy]
   before_action :current_page
 
   include Renders
@@ -35,7 +35,7 @@ class Api::V1::EmployeesController < ApplicationController
     success(@employee)
   end
 
-  # Action to update an administrator
+  # Action to update an employee
   def update
     policy.update?
     if @employee.update(employee_params)
@@ -43,6 +43,13 @@ class Api::V1::EmployeesController < ApplicationController
     else
       unprocessable_entity(@employee.errors)
     end
+  end
+
+  # Action to destroy an employee
+  def destroy
+    policy.destroy?
+    @employee.destroy
+    head :no_content
   end
 
   private

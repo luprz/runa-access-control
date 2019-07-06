@@ -20,13 +20,18 @@ class EmployeePolicy < ApplicationPolicy
     loudly { @user.is_a? Administrator }
   end
 
-  # Allow show only to administrators
+  # Allow show to administrators and employees
   def show?
-    loudly { @user.is_a? Administrator }
+    loudly { @user.is_a?(Administrator) || @user.is_a?(Employee) }
   end
 
   # Allow update only to administrators
   def update?
+    loudly { @user.is_a? Administrator }
+  end
+
+  # Allow destroy only to administrators
+  def destroy?
     loudly { @user.is_a? Administrator }
   end
 end
