@@ -2,7 +2,7 @@
 
 # Administrator model
 class Administrator < User
-  has_many :subjects
+  has_many :subjects, dependent: :destroy
   has_many :employees, through: :subjects
 
   # Instance function to assign an employee
