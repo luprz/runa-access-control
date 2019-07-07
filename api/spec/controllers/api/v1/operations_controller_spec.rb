@@ -21,6 +21,13 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
         expect(response.status).to eq(401)
       end
     end
+
+    describe 'GET /api/v1/operations/:id' do
+      it '401 - Unauthorized' do
+        get :show, params: { id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   context 'with an authenticated user' do
@@ -68,6 +75,30 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
       end
 
       it '200 - OK' do
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'GET /api/v1/operations/:id' do
+      let(:user_assigned) { :administrator }
+      let(:employee) { create(:employee) }
+      let(:operation) do
+        create(:operation, administrator_id: user.id,
+                           employee_id: employee.id)
+      end
+
+      before do
+        mock = double(show?: true)
+
+        expect(OperationPolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      it '200 - OK' do
+        get :show, params: { id: operation.id }
         expect(response.status).to eq(200)
       end
     end

@@ -10,48 +10,56 @@ RSpec.describe Employee, type: :model do
   end
 
   describe '#check_toggle' do
-    context 'when the user does not have operations' do
-      let(:employee) { create(:employee) }
+    let(:user) { create(:administrator) }
+    let(:employee) { create(:employee) }
 
+    context 'when the user does not have operations' do
       it 'successfully' do
-        check_obj = employee.check_toggle(note: nil)
+        check_obj = employee.check_toggle(admin_id: user.id, note: nil)
         expect(check_obj.status).to eq('in')
       end
     end
 
     context "When the user's last operation was out" do
-      let(:employee) { create(:employee) }
-      before { create(:operation, :out, employee_id: employee.id) }
+      before do
+        create(:operation, :out, employee_id: employee.id,
+                                 administrator_id: user.id)
+      end
 
       it 'successfully' do
-        check_obj = employee.check_toggle(note: nil)
+        check_obj = employee.check_toggle(admin_id: user.id, note: nil)
         expect(check_obj.status).to eq('in')
       end
     end
 
     context "When the user's last operation was in" do
-      let(:employee) { create(:employee) }
-      before { create(:operation, :in, employee_id: employee.id) }
+      before do
+        create(:operation, :in, employee_id: employee.id,
+                                administrator_id: user.id)
+      end
 
       it 'successfully' do
-        check_obj = employee.check_toggle(note: nil)
+        check_obj = employee.check_toggle(admin_id: user.id, note: nil)
         expect(check_obj.status).to eq('out')
       end
     end
   end
 
   describe '#status' do
-    context 'when the user does not have operations' do
-      let(:employee) { create(:employee) }
+    let(:user) { create(:administrator) }
+    let(:employee) { create(:employee) }
 
+    context 'when the user does not have operations' do
       it 'successfully' do
         expect(employee.status).to eq('out')
       end
     end
 
     context "When the user's last operation was out" do
-      let(:employee) { create(:employee) }
-      before { create(:operation, :out, employee_id: employee.id) }
+      before do
+        create(:operation, :out, employee_id: employee.id,
+                                 administrator_id: user.id)
+      end
 
       it 'successfully' do
         expect(employee.status).to eq('out')
@@ -59,8 +67,10 @@ RSpec.describe Employee, type: :model do
     end
 
     context "When the user's last operation was in" do
-      let(:employee) { create(:employee) }
-      before { create(:operation, :in, employee_id: employee.id) }
+      before do
+        create(:operation, :in, employee_id: employee.id,
+                                administrator_id: user.id)
+      end
 
       it 'successfully' do
         expect(employee.status).to eq('in')
