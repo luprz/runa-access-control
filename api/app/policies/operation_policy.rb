@@ -19,4 +19,9 @@ class OperationPolicy < ApplicationPolicy
   def check?
     index?
   end
+
+  # Allow to show operations
+  def show?
+    index?
+  end
 end

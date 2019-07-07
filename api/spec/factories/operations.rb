@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :operation do
     status { 1 }
     employee_id { 1 }
+    administrator_id { 1 }
     note { 'note' }
 
     trait :in do

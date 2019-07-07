@@ -10,7 +10,7 @@ class Api::V1::OperationsController < ApplicationController
   def index
     @policy.index?
     operations = Operation.all.page(@current_page)
-    message(operations)
+    success(operations)
   end
 
   # Action to register check in / check out
@@ -18,9 +18,17 @@ class Api::V1::OperationsController < ApplicationController
     @policy.check?
     note = operation_params[:note]
     operation = @employee.check_toggle(
-      note: note, 
-      admin_id: current_user)
+      note: note,
+      admin_id: current_user
+    )
     operation ? success(operation) : unprocessable_entity(operation)
+  end
+
+  # Action to show an operation
+  def show
+    policy.show?
+    operation = Operation.find(params[:id])
+    success(operation)
   end
 
   private

@@ -51,4 +51,23 @@ RSpec.describe OperationPolicy, type: :policy do
       end
     end
   end
+
+  describe '#show?' do
+    context 'when a user is admin' do
+      let(:user_assign) { :administrator }
+
+      it 'return true' do
+        expect(subject.show?).to equal(true)
+      end
+    end
+
+    context 'when a user is not admin' do
+      let(:user_assign) { :employee }
+
+      it 'raise pundit exception' do
+        expect { subject.show? }
+          .to raise_exception(Pundit::NotAuthorizedError)
+      end
+    end
+  end
 end

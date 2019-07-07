@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       # Control index
       get '/operations', to: 'operations#index', as: :index
+      get '/operations/:id', to: 'operations#show', as: :show
       post '/operations/check', to: 'operations#check', as: :check
 
       # Administrators
