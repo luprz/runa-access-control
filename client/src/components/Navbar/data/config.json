@@ -1,0 +1,20 @@
+{
+  "links": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "About Us",
+      "url": "/about"
+    },
+    {
+      "title": "Books",
+      "url": "/books"
+    },
+    {
+      "title": "Library",
+      "url": "/library"
+    }
+  ]
+}
