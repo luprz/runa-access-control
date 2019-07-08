@@ -1,0 +1,8 @@
+{
+  "serverPort": 4000,
+  "baseUrl": "http://localhost:4000",
+  "api": {
+    "v1": "/",
+    "v2": "/v2/"
+  }
+}
