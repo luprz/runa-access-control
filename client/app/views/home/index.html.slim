@@ -1,2 +1,12 @@
-h1 Home#index
-p Find me in app/views/home/index.html.slim
+.jumbotron
+.container.main-container
+  .row
+    .col-10
+      h1 Your team
+      p Manage the check in and check out of your team
+    .col-2
+      = link_to "#", class: 'btn btn-secundary add' do
+        | + Add new member
+  .card
+    .card-table
+      p No found member in your team
