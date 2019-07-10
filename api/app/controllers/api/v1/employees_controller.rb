@@ -3,6 +3,7 @@
 # Controller for employees
 class Api::V1::EmployeesController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_administrator
   before_action :set_employee, only: %i[show update destroy]
   before_action :current_page, only: %i[index]
   before_action :policy
@@ -12,7 +13,7 @@ class Api::V1::EmployeesController < ApplicationController
   # Action to get all employees
   def index
     @policy.index?
-    employees = Employee.all.page(@current_page)
+    employees = @administrator.employees.page(@current_page)
     success(employees)
   end
 
@@ -53,6 +54,12 @@ class Api::V1::EmployeesController < ApplicationController
   end
 
   private
+
+  def set_administrator
+    @administrator = Administrator.find(params[:administrator_id])
+  rescue StandardError
+    no_found("Couldn't find Administrator with 'id'=#{params[:id]}")
+  end
 
   # Set an employee
   def set_employee
