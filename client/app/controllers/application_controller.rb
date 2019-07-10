@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   private
 
   def authenticate_user
-    redirect_to '/users/sign_in' unless current_user    
+    redirect_to '/users/sign_in' unless current_user&.data&.attributes    
   end
 end
 

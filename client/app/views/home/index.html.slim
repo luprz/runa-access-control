@@ -1,12 +1,13 @@
 .jumbotron
 .container.main-container
   .row
-    .col-10
+    .col-9
       h1 Your team
       p Manage the check in and check out of your team
-    .col-2
-      = link_to "#", class: 'btn btn-secundary add' do
+    .col-3
+      = link_to "#", class: 'btn btn-secundary add float-right' do
         | + Add new member
   .card
-    .card-table
-      p No found member in your team
+    - if @employees.size.zero?
+      .card-table
+        p No found member in your team
