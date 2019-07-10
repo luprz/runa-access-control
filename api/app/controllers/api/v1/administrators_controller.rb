@@ -56,6 +56,10 @@ class Api::V1::AdministratorsController < ApplicationController
     end
   end
 
+  # actions to get employees
+  def employees
+  end
+
   private
 
   # Set an administrator
