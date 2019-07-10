@@ -22,4 +22,10 @@ class Employee < User
     last_operation = operations.last
     last_operation ? last_operation.status : 'out'
   end
+
+  # Instance function to show the last employee check date
+  def check_date
+    last_operation = operations.last
+    last_operation ? last_operation.created_at : nil
+  end
 end

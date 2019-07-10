@@ -58,6 +58,10 @@ class Api::V1::AdministratorsController < ApplicationController
 
   # actions to get employees
   def employees
+    @policy.index?
+    @admin = Administrator.find(params[:administrator_id])
+    employees = @admin.employees
+    success(employees) 
   end
 
   private
