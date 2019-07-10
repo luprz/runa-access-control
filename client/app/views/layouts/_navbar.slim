@@ -1,0 +1,17 @@
+nav.navbar.navbar-expand-lg.navbar-runa.bg-runa
+  a.navbar-brand href="#" RControl
+  button.navbar-toggler aria-controls="navbarNavDropdown" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNavDropdown" data-toggle="collapse" type="button" 
+    span.navbar-toggler-icon
+  #navbarNavDropdown.collapse.navbar-collapse
+    ul.navbar-nav
+      - if current_user
+        li.nav-item.dropdown
+          a#navbarDropdownMenuLink.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+            = current_user.data.attributes.email
+          .dropdown-menu aria-labelledby="navbarDropdownMenuLink" 
+            a.dropdown-item href="#"  Administrators
+            a.dropdown-item href="#"  Edit Profile
+            = link_to sessions_sign_out_path, class: "dropdown-item ", method: :delete do
+              | Logout
+      
+  

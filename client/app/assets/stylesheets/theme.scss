@@ -1,0 +1,70 @@
+html,
+body {
+  height: 100%;
+  color: #352c60 !important;
+  background: #f8f8fa !important;
+}
+
+.center-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 80%;
+}
+
+.bg-runa {
+  background: #7a6ff0 !important;
+}
+
+.navbar-runa {
+  a {
+    color: #ffff !important;
+  }
+
+  a:hover {
+    color: #ffff !important;
+  }
+}
+
+.btn {
+  border-radius: 20px !important;
+}
+
+.btn-primary {
+  background: #f5a623 !important;
+  border-color: #f5a623 !important;
+}
+
+.btn-secundary {
+  background: #50e3c1 !important;
+  border-color: #50e3c1 !important;
+  color: #ffff !important;
+}
+
+.navbar-collapse {
+  position: absolute;
+  right: 30px;
+}
+
+.dropdown-menu {
+  a {
+    color: black !important;
+  }
+
+  a:hover {
+    color: black !important;
+  }
+}
+
+.errors {
+  color: red !important;
+}
+
+.jumbotron {
+  padding: 8rem 2rem !important;
+}
+
+.main-container {
+  position: relative;
+  top: -13rem;
+}

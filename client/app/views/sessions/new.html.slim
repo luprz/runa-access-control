@@ -1,0 +1,16 @@
+.center-container
+  .card.sessions-card
+    .card-header
+      | Login
+    .card-body
+      = form_tag(sessions_create_path, method: :post) do 
+        .form-group
+          label for="exampleInputEmail1"  Email address
+          = email_field :email, nil, name: 'sessions[email]', class: 'form-control', placeholder: 'Enter email'
+        .form-group
+          label for="exampleInputPassword1"  Password
+          = password_field_tag :password, nil, name: 'sessions[password]', class: 'form-control', placeholder: 'Password'
+        .form-group
+          - if flash[:notice]
+            .flash-notice.errors= flash[:notice]
+        button.btn.btn-primary.float-right type="submit"  Sign In
