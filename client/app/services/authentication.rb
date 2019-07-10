@@ -9,20 +9,20 @@ class Authentication
   end
 
   def sign_in
-    response = api.post do |req|
-                req.url SIGN_IN
-                req.body = {
-                  email: @email,
-                  password: @password 
-                } 
-              end
+    api.post do |req|
+      req.url SIGN_IN
+      req.body = {
+        email: @email,
+        password: @password 
+      } 
+    end
   end
 
   def sign_out(headers)
     api = api_with_headers(headers)
-    response = api.delete do |req|
-                req.url SIGN_OUT
-              end
+    api.delete do |req|
+      req.url SIGN_OUT
+    end
   end
 
   private

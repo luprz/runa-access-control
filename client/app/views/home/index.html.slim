@@ -8,6 +8,42 @@
       = link_to "#", class: 'btn btn-secundary add float-right' do
         | + Add new member
   .card
-    - if @employees.size.zero?
+    - if @employees.data.size.zero?
       .card-table
         p No found member in your team
+    - else
+      table.table.table-hover
+        thead
+          tr
+            th scope="col"  #id
+            th scope="col"  Name
+            th scope="col"  Position
+            th scope="col"  Status
+            th scope="col"  Last check
+            th scope="col"  Check
+            th scope="col"  Control
+        tbody
+          - @employees.data.each do |employee|
+            tr
+              td scope="row"
+                = link_to "#", class: "link-primary" do
+                  .table-label= employee.id
+              td
+                = link_to "#", class: "link-primary" do
+                  .table-label= employee.attributes.name
+              td
+                .table-label= employee.attributes.position
+              td
+                div class="table-label check-#{employee.attributes.status}"
+                  = employee.attributes.status.capitalize
+              td
+                .table-label= employee.attributes.check_date
+              td
+                = link_to "#", class: "btn btn-primary" do
+                  | Check
+              td
+                .table-label
+                  = link_to "#", class: "action-secundary", title: "Edit" do
+                    .bx.bx-pencil
+                  = link_to "#", class: "action-danger", title: "Delete" do
+                    .bx.bx-trash
