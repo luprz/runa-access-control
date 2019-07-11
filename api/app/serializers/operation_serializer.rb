@@ -3,7 +3,7 @@
 # Operation json api serializer
 class OperationSerializer < ActiveModel::Serializer
   attributes :id, :status, :note, :created_at,
-             :employee_id, :employee_name, 
+             :employee_id, :employee_name,
              :employee_position
   belongs_to :employee
   belongs_to :administrator
