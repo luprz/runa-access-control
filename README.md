@@ -8,32 +8,32 @@
 
 ### API
 
-Step 1: 
+***Step 1:*** 
 
 `cd api`
 
-Step 2: 
+***Step 2:*** 
 
 `bundle install`
 
-Step 3: 
+***Step 3:*** 
 
 `rails db:create db:migrate db:seed`
 
-Step 4: 
+***Step 4:*** 
 
 `rails s`
 
 ### Client
 
-Step 1: 
+***Step 1:*** 
 
 `cd client`
 
-Step 2: 
+***Step 2:*** 
 
 `bundle install`
 
-Step 4: 
+***Step 3*** 
 
 `rails s`
