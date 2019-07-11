@@ -2,34 +2,12 @@
 .container.main-container
   .row
     .col-9
-      h1= @employee.data.attributes.name
-      p= @employee.data.attributes.position
+      h1 History
+      p See all operations of your team
     .col-3
       = link_to root_path, class: 'btn btn-back add float-right' do
         i.bx.bx-arrow-back
         | Go home
-  .card
-    .card-body
-      .row
-        .col
-          label #id: 
-          p= @employee.data.id
-        .col
-          label Name: 
-          p= @employee.data.attributes.name
-        .col
-          label Position: 
-          p= @employee.data.attributes.position
-        .col
-          label Email: 
-          p= @employee.data.attributes.email
-        .col
-          .float-right
-            = link_to employees_edit_path(@employee.data.id), class: "action-secundary", title: "Edit" do
-              .bx.bx-pencil
-            = link_to employees_destroy_path(@employee.data.id), class: "action-danger", "data-confirm": "Are you sure?", title: "Delete", method: :delete do
-              .bx.bx-trash
-  br
   .card
     - if @operations.data.size.zero?
       .card-table
@@ -38,7 +16,9 @@
       table.table.table-hover
         thead
           tr
-            th scope="col"  #id
+            th scope="col"  #Operation id
+            th scope="col"  Name
+            th scope="col"  Position
             th scope="col"  Status
             th scope="col"  Check Date
         tbody
@@ -46,6 +26,11 @@
             tr
               td scope="row"
                 .table-label= operation.id
+              td scope="col"
+                = link_to employees_show_path(operation.attributes['employee-id']), class: "link-primary" do
+                  .table-label= operation.attributes['employee-name']
+              td scope="col"
+                .table-label= operation.attributes['employee-position']
               td
                 div class="table-label check-#{operation.attributes.status}"
                   = operation.attributes.status.capitalize

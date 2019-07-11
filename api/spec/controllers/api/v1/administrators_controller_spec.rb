@@ -41,9 +41,16 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
       end
     end
 
-    describe 'DELETE /api/v1/administrators/:id' do
+    describe 'GET /api/v1/administrators/:administrator_id/employees' do
       it '401 - Unauthorized' do
         get :employees, params: { administrator_id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe 'GET /api/v1/administrators/:administrator_id/operations' do
+      it '401 - Unauthorized' do
+        get :operations, params: { administrator_id: 1 }
         expect(response.status).to eq(401)
       end
     end
@@ -242,6 +249,24 @@ RSpec.describe Api::V1::AdministratorsController, type: :controller do
 
       it '200 - OK' do
         get :employees, params: { administrator_id: user.id }
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'GET /api/v1/administrators/:administration_id/operations' do
+      let(:user_assigned) { :administrator }
+      before do
+        mock = double(index?: true)
+
+        expect(AdministratorPolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      it '200 - OK' do
+        get :operations, params: { administrator_id: user.id }
         expect(response.status).to eq(200)
       end
     end

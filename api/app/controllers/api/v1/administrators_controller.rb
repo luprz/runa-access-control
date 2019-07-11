@@ -61,7 +61,15 @@ class Api::V1::AdministratorsController < ApplicationController
     @policy.index?
     @admin = Administrator.find(params[:administrator_id])
     employees = @admin.employees
-    success(employees) 
+    success(employees)
+  end
+
+  # Action to get operations
+  def operations
+    @policy.index?
+    admin = Administrator.find(params[:administrator_id])
+    operations = admin.operations
+    success(operations.order('created_at DESC'))
   end
 
   private

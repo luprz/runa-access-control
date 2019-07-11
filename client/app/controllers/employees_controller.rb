@@ -1,10 +1,12 @@
 class EmployeesController < ApplicationController
+  before_action :authenticate_user
   before_action :set_employee, only: %i[show edit update]
 
-  def show; end
-
-  def new
+  def show
+    @operations = employee.operations(@employee.data.id)
   end
+
+  def new; end
 
   def create
     @employee = employee.create(params[:employee])
@@ -32,10 +34,7 @@ class EmployeesController < ApplicationController
     employee.destroy(params[:id])
     redirect_to root_path
   end
-
-  def check
-  end
-
+  
   private
 
   def employee

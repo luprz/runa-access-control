@@ -34,6 +34,14 @@ class Employee
     end
   end
 
+
+  def operations(id)
+    response = api.get do |req|
+      req.url "#{API}/#{id}/operations"
+    end
+    render(response.body)
+  end
+
   private
 
   def api

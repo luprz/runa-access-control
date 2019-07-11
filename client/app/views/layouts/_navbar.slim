@@ -10,6 +10,8 @@ nav.navbar.navbar-expand-lg.navbar-runa.bg-runa
             = current_user.data.attributes.email
           .dropdown-menu aria-labelledby="navbarDropdownMenuLink" 
             a.dropdown-item href="#"  Administrators
+            = link_to operations_history_path, class: "dropdown-item " do
+              | History
             a.dropdown-item href="#"  Edit Profile
             = link_to sessions_sign_out_path, class: "dropdown-item ", method: :delete do
               | Logout

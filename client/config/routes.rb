@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'operation/check'
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -18,5 +19,11 @@ Rails.application.routes.draw do
     patch '/:id/update', action: :update, as: :update
     delete '/:id/destroy', action: :destroy, as: :destroy
     post '/:id/check', action: :check, as: :check
+  end
+
+  # Employees
+  namespace :operations  do
+    get '/history', action: :history, as: :history
+    post '/check/:employee_id', action: :check, as: :check
   end
 end
