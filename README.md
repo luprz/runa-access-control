@@ -37,3 +37,17 @@
 ***Step 3*** 
 
 `rails s`
+
+## Users default
+
+***Administrator***
+
+Email: admin@admin.com
+
+Password: 12345678
+
+***Employee***
+
+Email: employee@employee.com
+
+Password: 12345678
