@@ -17,12 +17,12 @@ Rails.application.routes.draw do
       # Administrators
       resources :administrators do
         get '(page/:page)', action: :index, on: :collection, as: nil
+        get '/employees', action: :employees, as: :employees
+      end
 
-
-        # Employees
-        resources :employees do
-          get '(page/:page)', action: :index, on: :collection, as: nil
-        end
+      # Employees
+      resources :employees do
+        get '(page/:page)', action: :index, on: :collection, as: nil
       end
     end
   end

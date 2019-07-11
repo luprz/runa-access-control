@@ -6,42 +6,37 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
   let(:user) { create(user_assigned) }
 
   context 'without an authenticated user' do
-    describe 'GET /api/v1/administrtors/:administrator_id/employees' do
-      let(:user_assigned) { :administrator }
+    describe 'GET /api/v1/employees' do
       it '401 - Unauthorized' do
-        get :index, params: { administrator_id: user.id }
+        get :index
         expect(response.status).to eq(401)
       end
     end
 
-    describe 'POST /api/v1/administrtors/:administrator_id/employees' do
-      let(:user_assigned) { :administrator }
+    describe 'POST /api/v1/employees' do
       it '401 - Unauthorized' do
-        post :create, params: { administrator_id: user.id }
+        post :create
         expect(response.status).to eq(401)
       end
     end
 
-    describe 'GET /api/v1/administrtors/:administrator_id/employees/:id' do
-      let(:user_assigned) { :administrator }
+    describe 'GET /api/v1/employees/:id' do
       it '401 - Unauthorized' do
-        post :show, params: { administrator_id: user.id, id: 1 }
+        post :show, params: { id: 1 }
         expect(response.status).to eq(401)
       end
     end
 
-    describe 'UPDATE /api/v1/administrtors/:administrator_id/employee/:id' do
-      let(:user_assigned) { :administrator }
+    describe 'UPDATE /api/v1/employee/:id' do
       it '401 - Unauthorized' do
-        patch :update, params: { administrator_id: user.id, id: 1 }
+        patch :update, params: { id: 1 }
         expect(response.status).to eq(401)
       end
     end
 
-    describe 'DELETE /api/v1/administrtors/:administrator_id/employee/:id' do
-      let(:user_assigned) { :administrator }
+    describe 'DELETE /api/v1/employee/:id' do
       it '401 - Unauthorized' do
-        delete :destroy, params: { administrator_id: user.id, id: 1 }
+        delete :destroy, params: { id: 1 }
         expect(response.status).to eq(401)
       end
     end
@@ -53,7 +48,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       sign_in(user)
     end
 
-    describe 'GET /api/v1/administrtors/:administrator_id/employees' do
+    describe 'GET /api/v1/employees' do
       before do
         mock = double(index?: true)
 
@@ -65,12 +60,12 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       end
 
       it '200 - OK' do
-        get :index, params: { administrator_id: user.id }
+        get :index
         expect(response.status).to eq(200)
       end
     end
 
-    describe 'POST /api/v1/administrtors/:administrator_id/employees' do
+    describe 'POST /api/v1/employees' do
       context 'when administrator has been created successfully' do
         before do
           mock = double(create?: true)
@@ -82,7 +77,6 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
             .and_return(mock)
 
           post :create, params: {
-            administrator_id: user.id,
             employee: {
               name: 'Sr. Employee',
               email: 'admin@gmail.com',
@@ -113,7 +107,6 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
             .and_return(mock)
 
           post :create, params: {
-            administrator_id: user.id,
             employee: {
               email: ''
             }
@@ -126,7 +119,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       end
     end
 
-    describe 'GET /api/v1/administrtors/:administrator_id/employees/:id' do
+    describe 'GET /api/v1/employees/:id' do
       let(:employee) { create(:employee) }
 
       before do
@@ -140,12 +133,12 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       end
 
       it '200 - OK' do
-        get :show, params: { administrator_id: user.id, id: employee.id }
+        get :show, params: { id: employee.id }
         expect(response.status).to eq(200)
       end
     end
 
-    describe 'UPDATE /api/v1/administrtors/:administrator_id/employees/:id' do
+    describe 'UPDATE /api/v1/employees/:id' do
       context 'when administrator has been updated successfully' do
         let(:user_assigned) { :administrator }
         let(:employee) { create(:employee) }
@@ -160,7 +153,6 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
             .and_return(mock)
 
           post :update, params: {
-            administrator_id: user.id,
             id: employee.id,
             employee: {
               name: 'Sr. Employee Gonzales',
@@ -195,7 +187,6 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
             .and_return(mock)
 
           post :update, params: {
-            administrator_id: user.id,
             id: employee.id,
             employee: {
               email: ''
@@ -209,7 +200,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       end
     end
 
-    describe 'DELETE /api/v1/administrtors/:administrator_id/employees/:id' do
+    describe 'DELETE /api/v1/employees/:id' do
       let(:user_assigned) { :administrator }
       let(:employee) { create(:employee) }
 
@@ -224,7 +215,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       end
 
       it '204 - NO CONTENT' do
-        delete :destroy, params: { administrator_id: user.id, id: employee.id }
+        delete :destroy, params: { id: employee.id }
         expect(response.status).to eq(204)
       end
     end

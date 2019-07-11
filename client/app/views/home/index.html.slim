@@ -1,12 +1,49 @@
 .jumbotron
 .container.main-container
   .row
-    .col-10
+    .col-9
       h1 Your team
       p Manage the check in and check out of your team
-    .col-2
-      = link_to "#", class: 'btn btn-secundary add' do
+    .col-3
+      = link_to employees_new_path, class: 'btn btn-secundary add float-right' do
         | + Add new member
   .card
-    .card-table
-      p No found member in your team
+    - if @employees.data.size.zero?
+      .card-table
+        p No found member in your team
+    - else
+      table.table.table-hover
+        thead
+          tr
+            th scope="col"  #id
+            th scope="col"  Name
+            th scope="col"  Position
+            th scope="col"  Status
+            th scope="col"  Last check
+            th scope="col"  Check
+            th scope="col"  Control
+        tbody
+          - @employees.data.each do |employee|
+            tr
+              td scope="row"
+                = link_to employees_show_path(employee.id), class: "link-primary" do
+                  .table-label= employee.id
+              td
+                = link_to employees_show_path(employee.id), class: "link-primary" do
+                  .table-label= employee.attributes.name
+              td
+                .table-label= employee.attributes.position
+              td
+                div class="table-label check-#{employee.attributes.status}"
+                  = employee.attributes.status.capitalize
+              td
+                .table-label= employee.attributes.check_date
+              td
+                = link_to "#", class: "btn btn-primary" do
+                  | Check
+              td
+                .table-label
+                  = link_to employees_edit_path(employee.id), class: "action-secundary", title: "Edit" do
+                    .bx.bx-pencil
+                  = link_to employees_destroy_path(employee.id), class: "action-danger", title: "Delete", "data-confirm": "Are you sure?", method: :delete do
+                    .bx.bx-trash

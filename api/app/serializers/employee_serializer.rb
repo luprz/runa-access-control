@@ -2,7 +2,7 @@
 
 # Employee json api serializer
 class EmployeeSerializer < ActiveModel::Serializer
-  attributes :id, :email, :name, :position, :status
+  attributes :id, :email, :name, :position, :status, :check_date
   has_many :administrators
   has_many :operations
 end

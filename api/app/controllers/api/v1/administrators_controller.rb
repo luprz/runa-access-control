@@ -56,6 +56,14 @@ class Api::V1::AdministratorsController < ApplicationController
     end
   end
 
+  # actions to get employees
+  def employees
+    @policy.index?
+    @admin = Administrator.find(params[:administrator_id])
+    employees = @admin.employees
+    success(employees) 
+  end
+
   private
 
   # Set an administrator

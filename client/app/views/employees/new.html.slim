@@ -1,0 +1,29 @@
+.jumbotron
+.container.main-container
+  .row
+    .col-9
+      h1 New member
+      p Create a new member for your team
+    .col-3
+      = link_to root_path, class: 'btn btn-back add float-right' do
+        i.bx.bx-arrow-back
+        | Go back
+  .card
+    .card-body
+      = form_tag(employees_create_path, method: :post) do
+        .form-group
+          - if flash[:notice]
+            .flash-notice.errors= flash[:notice]
+        .form-group
+          label Fullname
+          = text_field :name, nil, name: 'employee[name]', class: 'form-control', placeholder: 'Enter fullname'
+        .form-group
+          label Email address
+          = email_field :email, nil, name: 'employee[email]', class: 'form-control', placeholder: 'Enter email'
+        .form-group
+          label Position
+          = text_field :position, nil, name: 'employee[position]', class: 'form-control', placeholder: 'Enter position'
+        .form-group
+          label for="exampleInputPassword1"  Password
+          = password_field_tag :password, nil, name: 'employee[password]', class: 'form-control', placeholder: 'Password'
+        button.btn.btn-primary.float-right type="submit"  Create

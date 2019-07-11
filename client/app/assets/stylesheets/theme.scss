@@ -28,6 +28,8 @@ body {
 
 .btn {
   border-radius: 20px !important;
+  padding-left: 2rem !important;
+  padding-right: 2rem !important;
 }
 
 .btn-primary {
@@ -39,6 +41,12 @@ body {
   background: #50e3c1 !important;
   border-color: #50e3c1 !important;
   color: #ffff !important;
+}
+
+.btn-back {
+  background: none !important;
+  border-color: #352c60 !important;
+  color: #352c60 !important;
 }
 
 .navbar-collapse {
@@ -57,7 +65,7 @@ body {
 }
 
 .errors {
-  color: red !important;
+  color: #ff4483 !important;
 }
 
 .jumbotron {
@@ -68,3 +76,43 @@ body {
   position: relative;
   top: -13rem;
 }
+
+.table {
+  text-align: center;
+}
+
+.table-label {
+  border-radius: 20px !important;
+  padding: .4rem;
+  font-weight: 100;
+}
+
+.check-in {
+  background: #00e1c9;
+  color: #ffffff;
+}
+
+.check-out {
+  background: #ff4483;
+  color: #ffffff;
+}
+
+.link-primary,
+.link-primary:hover {
+  color: #352c60;
+}
+
+.action-secundary,
+.action-secundary:hover {
+  font-size: 1.3rem;
+  color: #00e1c9;
+  margin-right: 10px;
+}
+
+.action-danger,
+.action-danger:hover {
+  font-size: 1.3rem;
+  color: #ff4483;
+  margin-right: 10px;
+}
+
