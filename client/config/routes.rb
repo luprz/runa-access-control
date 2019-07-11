@@ -4,8 +4,19 @@ Rails.application.routes.draw do
 
   # Sessions
   namespace :sessions, path: :users do
-    get '/sign_in', action: 'new'
-    post '/create', action: 'create'
-    delete '/sign_out', action: 'destroy'
+    get '/sign_in', action: :new
+    post '/create', action: :create
+    delete '/sign_out', action: :destroy
+  end
+
+  # Employees
+  namespace :employees, path: :members do
+    get '/:id/profile', action: :show, as: :show
+    get '/new', action: :new, as: :new
+    post '/create', action: :create, as: :create
+    get '/:id/edit', action: :edit, as: :edit
+    patch '/:id/update', action: :update, as: :update
+    delete '/:id/destroy', action: :destroy, as: :destroy
+    post '/:id/check', action: :check, as: :check
   end
 end

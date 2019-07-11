@@ -5,7 +5,7 @@
       h1 Your team
       p Manage the check in and check out of your team
     .col-3
-      = link_to "#", class: 'btn btn-secundary add float-right' do
+      = link_to employees_new_path, class: 'btn btn-secundary add float-right' do
         | + Add new member
   .card
     - if @employees.data.size.zero?
@@ -26,10 +26,10 @@
           - @employees.data.each do |employee|
             tr
               td scope="row"
-                = link_to "#", class: "link-primary" do
+                = link_to employees_show_path(employee.id), class: "link-primary" do
                   .table-label= employee.id
               td
-                = link_to "#", class: "link-primary" do
+                = link_to employees_show_path(employee.id), class: "link-primary" do
                   .table-label= employee.attributes.name
               td
                 .table-label= employee.attributes.position
@@ -43,7 +43,7 @@
                   | Check
               td
                 .table-label
-                  = link_to "#", class: "action-secundary", title: "Edit" do
+                  = link_to employees_edit_path(employee.id), class: "action-secundary", title: "Edit" do
                     .bx.bx-pencil
-                  = link_to "#", class: "action-danger", title: "Delete" do
+                  = link_to employees_destroy_path(employee.id), class: "action-danger", title: "Delete", "data-confirm": "Are you sure?", method: :delete do
                     .bx.bx-trash
