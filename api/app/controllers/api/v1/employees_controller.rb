@@ -54,7 +54,7 @@ class Api::V1::EmployeesController < ApplicationController
 
   # Action to get operations
   def operations
-    @policy.index?
+    @policy.show?
     employee = Employee.find(params[:employee_id])
     operations = employee.operations
     success(operations.order('created_at DESC'))

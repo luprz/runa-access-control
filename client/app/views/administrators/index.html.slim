@@ -1,0 +1,25 @@
+.jumbotron
+.container.main-container
+  .row
+    .col-9
+      h1 Administrators
+      p Each administrator has his own team
+    .col-3
+      = link_to administrators_new_path, class: 'btn btn-secundary add float-right' do
+        | + Add new administrator
+  .card
+    - if @administrators.data.size.zero?
+      .card-table
+        p No found more administrators
+    - else
+      table.table.table-hover
+        thead
+          tr
+            th scope="col"  #id
+            th scope="col"  Name            
+            th scope="col"  Position
+            th scope="col"  Email
+            th scope="col"  Control
+        tbody
+          #administrators-list
+            = render 'listing', administrators: @administrators

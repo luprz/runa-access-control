@@ -1,5 +1,6 @@
 class OperationsController < ApplicationController
   before_action :authenticate_user
+  before_action :authorize
   def check
     operation.check(params[:employee_id])
     redirect_to root_path

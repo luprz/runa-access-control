@@ -4,7 +4,7 @@
 class Employee < User
   has_many :subjects, dependent: :destroy
   has_many :administrators, through: :subjects
-  has_many :operations
+  has_many :operations, dependent: :destroy
 
   # Instance function to register check in or check out
   def check_toggle(admin_id:, note:)

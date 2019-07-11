@@ -1,0 +1,29 @@
+.jumbotron
+.container.main-container
+  .row
+    .col-9
+      h1 New administrator
+      p Create a new administrator
+    .col-3
+      = link_to administrators_index_path, class: 'btn btn-back add float-right' do
+        i.bx.bx-arrow-back
+        | Go to adminitrators
+  .card
+    .card-body
+      = form_tag(administrators_create_path, method: :post) do
+        .form-group
+          - if flash[:notice]
+            .flash-notice.errors= flash[:notice]
+        .form-group
+          label Fullname
+          = text_field :name, nil, name: 'administrator[name]', class: 'form-control', placeholder: 'Enter fullname'
+        .form-group
+          label Email address
+          = email_field :email, nil, name: 'administrator[email]', class: 'form-control', placeholder: 'Enter email'
+        .form-group
+          label Position
+          = text_field :position, nil, name: 'administrator[position]', class: 'form-control', placeholder: 'Enter position'
+        .form-group
+          label for="exampleInputPassword1"  Password
+          = password_field_tag :password, nil, name: 'administrator[password]', class: 'form-control', placeholder: 'Password'
+        button.btn.btn-primary.float-right type="submit"  Create
