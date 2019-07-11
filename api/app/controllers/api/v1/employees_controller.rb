@@ -52,6 +52,14 @@ class Api::V1::EmployeesController < ApplicationController
     head :no_content
   end
 
+  # Action to get operations
+  def operations
+    @policy.index?
+    employee = Employee.find(params[:employee_id])
+    operations = employee.operations
+    success(operations.order('created_at DESC'))
+  end
+
   private
 
   # Set an employee

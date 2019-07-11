@@ -7,7 +7,7 @@
     .col-3
       = link_to root_path, class: 'btn btn-back add float-right' do
         i.bx.bx-arrow-back
-        | Go back
+        | Go home
   .card
     .card-body
       = form_tag(employees_update_path(@employee.data.id), method: :patch) do

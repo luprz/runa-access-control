@@ -40,6 +40,13 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
         expect(response.status).to eq(401)
       end
     end
+
+    describe 'GET /api/v1/employees/:employee_id/operations' do
+      it '401 - Unauthorized' do
+        get :operations, params: { employee_id: 1 }
+        expect(response.status).to eq(401)
+      end
+    end
   end
 
   context 'with an authenticated user' do
@@ -217,6 +224,25 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       it '204 - NO CONTENT' do
         delete :destroy, params: { id: employee.id }
         expect(response.status).to eq(204)
+      end
+    end
+
+    describe 'GET /api/v1/employees/:employee_id/operations' do
+      let(:user_assigned) { :administrator }
+      let(:employee) { create(:employee) }
+      before do
+        mock = double(index?: true)
+
+        expect(EmployeePolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      it '200 - OK' do
+        get :operations, params: { employee_id: employee.id }
+        expect(response.status).to eq(200)
       end
     end
   end
