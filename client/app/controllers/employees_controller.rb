@@ -1,5 +1,6 @@
 class EmployeesController < ApplicationController
   before_action :authenticate_user
+  before_action :authorize, except: :show
   before_action :set_employee, only: %i[show edit update]
 
   def show

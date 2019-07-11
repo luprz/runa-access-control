@@ -1,0 +1,16 @@
+- administrators.data.each do |administrator|
+  tr
+    td scope="row"
+      .table-label= administrator.id
+    td scope="row"
+      .table-label= administrator.attributes.name
+    td scope="row"
+      .table-label= administrator.attributes.position
+    td scope="row"
+      .table-label= administrator.attributes.email
+    td
+      .table-label
+        = link_to administrators_edit_path(administrator.id), class: "action-secundary", title: "Edit" do
+          .bx.bx-pencil
+        = link_to administrators_destroy_path(administrator.id), class: "action-danger", title: "Delete", "data-confirm": "Are you sure?", method: :delete do
+          .bx.bx-trash

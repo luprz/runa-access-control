@@ -1,0 +1,29 @@
+.jumbotron
+.container.main-container
+  .row
+    .col-9
+      h1 Edit administrator
+      p Edit the information of a administrator.
+    .col-3
+      = link_to administrators_index_path, class: 'btn btn-back add float-right' do
+        i.bx.bx-arrow-back
+        | Go to administrators
+  .card
+    .card-body
+      = form_tag(administrators_update_path(@administrator.data.id), method: :patch) do
+        .form-group
+          - if flash[:notice]
+            .flash-notice.errors= flash[:notice]
+        .form-group
+          label Fullname
+          = text_field :name, nil, name: 'administrator[name]', class: 'form-control', placeholder: 'Enter fullname', value: @administrator.data.attributes.name
+        .form-group
+          label Email address
+          = email_field :email, nil, name: 'administrator[email]', class: 'form-control', placeholder: 'Enter email', value: @administrator.data.attributes.email
+        .form-group
+          label Position
+          = text_field :position, nil, name: 'administrator[position]', class: 'form-control', placeholder: 'Enter position', value: @administrator.data.attributes.position
+        .form-group
+          label for="exampleInputPassword1"  Password
+          = password_field_tag :password, nil, name: 'administrator[password]', class: 'form-control', placeholder: 'Password', value: @administrator.data.attributes.password
+        button.btn.btn-primary.float-right type="submit"  Update

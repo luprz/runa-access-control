@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'operation/check'
   root 'home#index'
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
@@ -10,6 +9,16 @@ Rails.application.routes.draw do
     delete '/sign_out', action: :destroy
   end
 
+   # Administrators
+   namespace :administrators do
+    get '/', action: :index, as: :index
+    get '/new', action: :new, as: :new
+    post '/create', action: :create, as: :create
+    get '/:id/edit', action: :edit, as: :edit
+    patch '/:id/update', action: :update, as: :update
+    delete '/:id/destroy', action: :destroy, as: :destroy
+  end
+
   # Employees
   namespace :employees, path: :members do
     get '/:id/profile', action: :show, as: :show
@@ -18,10 +27,9 @@ Rails.application.routes.draw do
     get '/:id/edit', action: :edit, as: :edit
     patch '/:id/update', action: :update, as: :update
     delete '/:id/destroy', action: :destroy, as: :destroy
-    post '/:id/check', action: :check, as: :check
   end
 
-  # Employees
+  # Operations
   namespace :operations  do
     get '/history', action: :history, as: :history
     post '/check/:employee_id', action: :check, as: :check

@@ -5,6 +5,13 @@ class Administrator
     @headers = headers
   end
 
+  def all
+    response = api.get do |req|
+      req.url "#{API}/"
+    end
+    render(response.body)
+  end
+
   def find(id)
     response = api.get do |req|
       req.url "#{API}/#{id}"

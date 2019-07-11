@@ -1,5 +1,6 @@
 class HomeController < ApplicationController
   before_action :authenticate_user
+  before_action :authorize
 
   def index
     admin_id = current_user.data.id

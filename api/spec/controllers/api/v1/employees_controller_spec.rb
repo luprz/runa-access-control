@@ -231,7 +231,7 @@ RSpec.describe Api::V1::EmployeesController, type: :controller do
       let(:user_assigned) { :administrator }
       let(:employee) { create(:employee) }
       before do
-        mock = double(index?: true)
+        mock = double(show?: true)
 
         expect(EmployeePolicy)
           .to receive(:new)

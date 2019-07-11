@@ -5,9 +5,10 @@
       h1= @employee.data.attributes.name
       p= @employee.data.attributes.position
     .col-3
-      = link_to root_path, class: 'btn btn-back add float-right' do
-        i.bx.bx-arrow-back
-        | Go home
+      - unless current_user&.data&.type.eql?('employees')
+        = link_to root_path, class: 'btn btn-back add float-right' do
+          i.bx.bx-arrow-back
+          | Go home
   .card
     .card-body
       .row
@@ -24,11 +25,12 @@
           label Email: 
           p= @employee.data.attributes.email
         .col
-          .float-right
-            = link_to employees_edit_path(@employee.data.id), class: "action-secundary", title: "Edit" do
-              .bx.bx-pencil
-            = link_to employees_destroy_path(@employee.data.id), class: "action-danger", "data-confirm": "Are you sure?", title: "Delete", method: :delete do
-              .bx.bx-trash
+          - unless current_user&.data&.type.eql?('employees') 
+            .float-right
+              = link_to employees_edit_path(@employee.data.id), class: "action-secundary", title: "Edit" do
+                .bx.bx-pencil
+              = link_to employees_destroy_path(@employee.data.id), class: "action-danger", "data-confirm": "Are you sure?", title: "Delete", method: :delete do
+                .bx.bx-trash
   br
   .card
     - if @operations.data.size.zero?
