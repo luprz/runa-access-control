@@ -6,7 +6,7 @@
 `git clone git@github.com:luprz/runa-access-control.git`
 `cd /runa-access-control`
 
-### API
+### API Install
 
 ***Step 1:*** 
 
@@ -24,7 +24,7 @@
 
 `rails s`
 
-### Client
+### Client install
 
 ***Step 1:*** 
 
