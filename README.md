@@ -22,7 +22,7 @@
 
 ***Step 4:*** 
 
-`rails s`
+`rails s -p 4000`
 
 ### Client install
 
