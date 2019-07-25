@@ -5,9 +5,17 @@ class Operation
     @headers = headers
   end
 
-  def check(employee_id)
+  def check_in(employee_id)
     response = api.post do |req|
-      req.url "#{API}/check"
+      req.url "#{API}/check_in"
+      req.params['operation'] = params(employee_id)
+    end
+    render(response.body)
+  end
+
+  def check_out(employee_id)
+    response = api.post do |req|
+      req.url "#{API}/check_out"
       req.params['operation'] = params(employee_id)
     end
     render(response.body)

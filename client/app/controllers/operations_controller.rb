@@ -1,8 +1,13 @@
 class OperationsController < ApplicationController
   before_action :authenticate_user
   before_action :authorize
-  def check
-    operation.check(params[:employee_id])
+  def check_in
+    operation.check_in(params[:employee_id])
+    redirect_to root_path
+  end
+
+  def check_out
+    operation.check_out(params[:employee_id])
     redirect_to root_path
   end
 

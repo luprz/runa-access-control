@@ -16,8 +16,10 @@
         - if !employee.attributes['check-date'].blank?
           = DateTime.parse(employee.attributes['check-date']).strftime("%F - %T")
     td
-      = link_to operations_check_path(employee.id), class: "btn btn-primary", method: :post do
-        | Check
+      = link_to operations_check_in_path(employee.id), class: "btn btn-check-in", method: :post do
+        i.bx.bx-up-arrow-alt
+      = link_to operations_check_out_path(employee.id), class: "btn btn-check-out", method: :post do
+        i.bx.bx-down-arrow-alt
     td
       .table-label
         = link_to employees_edit_path(employee.id), class: "action-secundary", title: "Edit" do

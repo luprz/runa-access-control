@@ -32,6 +32,7 @@ Rails.application.routes.draw do
   # Operations
   namespace :operations  do
     get '/history', action: :history, as: :history
-    post '/check/:employee_id', action: :check, as: :check
+    post '/check_in/:employee_id', action: :check_in, as: :check_in
+    post '/check_out/:employee_id', action: :check_out, as: :check_out
   end
 end

@@ -15,9 +15,16 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
       end
     end
 
-    describe 'POST /api/v1/operations/check' do
+    describe 'POST /api/v1/operations/check_in' do
       it '401 - Unauthorized' do
-        post :check
+        post :check_in
+        expect(response.status).to eq(401)
+      end
+    end
+
+    describe 'POST /api/v1/operations/check_out' do
+      it '401 - Unauthorized' do
+        post :check_out
         expect(response.status).to eq(401)
       end
     end
@@ -51,7 +58,7 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
       end
     end
 
-    describe 'POST /api/v1/operations/check' do
+    describe 'POST /api/v1/operations/check_in' do
       let(:user_assigned) { :administrator }
       let(:employee) { create(:employee) }
 
@@ -66,7 +73,35 @@ RSpec.describe Api::V1::OperationsController, type: :controller do
       end
 
       before do
-        post :check, params: {
+        post :check_in, params: {
+          operation: {
+            employee_id: employee.id,
+            note: 'Note here'
+          }
+        }
+      end
+
+      it '200 - OK' do
+        expect(response.status).to eq(200)
+      end
+    end
+
+    describe 'POST /api/v1/operations/check_out' do
+      let(:user_assigned) { :administrator }
+      let(:employee) { create(:employee) }
+
+      before do
+        mock = double(check?: true)
+
+        expect(OperationPolicy)
+          .to receive(:new)
+          .with(user: user)
+          .once
+          .and_return(mock)
+      end
+
+      before do
+        post :check_out, params: {
           operation: {
             employee_id: employee.id,
             note: 'Note here'
