@@ -22,7 +22,7 @@ class Api::V1::EmployeesController < ApplicationController
     employee = Employee.new(employee_params)
 
     if employee.save
-      current_user.register(employee)
+      current_user.add_employee(employee)
       created(employee)
     else
       unprocessable_entity(employee.errors)

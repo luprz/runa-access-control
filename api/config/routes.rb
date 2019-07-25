@@ -12,7 +12,8 @@ Rails.application.routes.draw do
       # Control index
       get '/operations', to: 'operations#index', as: :index
       get '/operations/:id', to: 'operations#show', as: :show
-      post '/operations/check', to: 'operations#check', as: :check
+      post '/operations/check_in', to: 'operations#check_in', as: :check_in
+      post '/operations/check_out', to: 'operations#check_out', as: :check_out
 
       # Administrators
       resources :administrators do

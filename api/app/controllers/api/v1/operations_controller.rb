@@ -3,7 +3,7 @@
 # Controller to handle check in/check out
 class Api::V1::OperationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_employee, only: %i[check]
+  before_action :set_employee, only: %i[check check_in check_out]
   before_action :policy
 
   # Action to get all operations
@@ -13,14 +13,19 @@ class Api::V1::OperationsController < ApplicationController
     success(operations.order('created_at DESC'))
   end
 
-  # Action to register check in / check out
-  def check
+  # Action to register check in
+  def check_in
     @policy.check?
     note = operation_params[:note]
-    operation = @employee.check_toggle(
-      note: note,
-      admin_id: current_user.id
-    )
+    operation = current_user.register_in(@employee, note)
+    operation ? success(operation) : unprocessable_entity(operation)
+  end
+
+  # Action to register check out
+  def check_out
+    @policy.check?
+    note = operation_params[:note]
+    operation = current_user.register_out(@employee, note)
     operation ? success(operation) : unprocessable_entity(operation)
   end
 
