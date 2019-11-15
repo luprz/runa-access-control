@@ -23,7 +23,7 @@ gem 'puma', '~> 3.7'
 # gem 'capistrano-rails', group: :development
 
 # The CORS spec allows web applications to make cross-domain AJAX calls without using workarounds such as JSONP.
-gem 'rack-cors', '1.0.3'
+gem 'rack-cors', '1.0.5'
 # Json api serializer
 gem 'active_model_serializers'
 # Rack middleware for blocking & throttling
