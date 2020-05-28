@@ -34,7 +34,7 @@ gem 'omniauth', '1.9.0'
 # Minimal authorization through OO design and pure Ruby classes
 gem 'pundit', '1.1.0'
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
-gem 'kaminari', '1.1.1'
+gem 'kaminari', '1.2.1'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
