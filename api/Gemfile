@@ -30,7 +30,7 @@ gem 'active_model_serializers'
 gem 'rack-attack', '5.4.2'
 # Token based authentication for Rails JSON APIs. Designed to work with jToker and ng-token-auth.
 gem 'devise_token_auth', '1.1.0'
-gem 'omniauth', '1.9.0'
+gem 'omniauth', '1.9.2'
 # Minimal authorization through OO design and pure Ruby classes
 gem 'pundit', '1.1.0'
 # A Scope & Engine based, clean, powerful, customizable and sophisticated paginator for modern web app frameworks and ORMs
